@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STARTKUP 淡江新創社 - 官方介紹網頁</title>
+    <!-- 引入現代排版字體 Outfit (英文) 與 Noto Sans TC (繁體中文) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- 引入外部樣式表 style.css (結構、樣式完全分離) -->
+    <link rel="stylesheet" href="style.css?v=1.1.3">
+</head>
+<body>
+
+    <!-- 宇宙星空與雲層背景 (航空主題) -->
+    <div class="airline-sky-bg">
+        <div class="stars-layer"></div>
+        <div class="clouds-layer">
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <div class="cloud cloud-3">☁️</div>
+            <div class="cloud cloud-4">☁️</div>
+        </div>
+    </div>
+    
+    <!-- 穿梭在雲層與星空中的新創客機 -->
+    <div class="parallax-airplane" id="parallax-airplane">
+        <svg width="85" height="55" viewBox="0 0 120 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <!-- 飛機漸層色：深蔚藍至深藍黑 (高對比機身) -->
+                <linearGradient id="plane-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0284c7" />
+                    <stop offset="100%" stop-color="#0f172a" />
+                </linearGradient>
+                <!-- 尾跡發光效果 (橘紅色高辨識發光) -->
+                <filter id="jet-glow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="2" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+            </defs>
+            <!-- 飛機機身 (深色) -->
+            <path d="M10 35 C30 30, 70 30, 95 33 C110 34, 115 37, 100 40 C80 43, 30 43, 10 35 Z" fill="url(#plane-grad)" />
+            <!-- 垂直尾翼 (深蔚藍) -->
+            <path d="M15 35 L5 12 L20 22 L22 35 Z" fill="#0284c7" />
+            <!-- 後翼 (天藍色) -->
+            <path d="M20 35 L12 48 L22 45 L25 35 Z" fill="#38bdf8" />
+            <!-- 主翼 (後掠翼，蔚藍與白雙色拼接，極具科幻與辨識度) -->
+            <path d="M60 35 L40 55 L55 52 L75 35 Z" fill="#0ea5e9" />
+            <path d="M60 35 L45 15 L58 18 L75 35 Z" fill="#ffffff" stroke="#0ea5e9" stroke-width="1" />
+            <!-- 機窗 (發光電光黃) -->
+            <rect x="75" y="32" width="6" height="3" rx="1.5" fill="#facc15" />
+            <rect x="65" y="32" width="6" height="3" rx="1.5" fill="#facc15" />
+            <rect x="55" y="32" width="6" height="3" rx="1.5" fill="#facc15" />
+            <!-- 噴射尾氣 (橘紅火焰，在淺藍背景下對比度極高) -->
+            <path d="M5 33 L-15 30 L-5 35 L-15 40 L5 37 Z" fill="#f97316" filter="url(#jet-glow)" />
+        </svg>
+    </div>
+
+    <!-- 頂部導覽列 -->
+    <header class="navbar" id="main-header">
+        <div class="nav-container">
+            <a href="#" class="logo-text">
+                <!-- 向量重製 Logo：由 8 個旋轉藍色漸層花瓣組成的圓形環，外加亮黃色描邊 -->
+                <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-logo-svg">
+                    <defs>
+                        <linearGradient id="nav-leaf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#bae6fd" />
+                            <stop offset="100%" stop-color="#38bdf8" />
+                        </linearGradient>
+                    </defs>
+                    <g transform="translate(50,50) scale(0.95)">
+                        <g transform="rotate(0)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(45)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(90)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(135)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(180)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(225)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(270)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        <g transform="rotate(315)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                    </g>
+                </svg>
+                <span class="logo-brand">START<span class="orange-k">K</span>UP</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#about" id="nav-about-btn">社團宗旨</a>
+                <a href="#structure" id="nav-struct-btn">組織架構</a>
+                <a href="#roles" id="nav-roles-btn">社員定位</a>
+                <a href="#credits" id="nav-credits-btn">社團學分</a>
+                <a href="#faq" id="nav-faq-btn">常見問題</a>
+                <!-- 字體縮放無障礙控制按鈕 -->
+                <div class="font-resizer" id="font-resizer-panel">
+                    <button class="resizer-btn" id="btn-font-dec" title="縮小字體">A-</button>
+                    <button class="resizer-btn active" id="btn-font-normal" title="預設字體">A</button>
+                    <button class="resizer-btn" id="btn-font-inc" title="放大字體">A+</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 首頁英雄區 (放 Logo 與 宗旨) -->
+    <section class="hero-section" id="about">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-container">
+            <!-- 向量重製大 Logo：使用與原圖一致的 8 瓣漸層旋轉圓環 -->
+            <div class="club-logo-container" id="club-logo">
+                <svg class="main-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="main-leaf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#bae6fd" />
+                            <stop offset="50%" stop-color="#7dd3fc" />
+                            <stop offset="100%" stop-color="#38bdf8" />
+                        </linearGradient>
+                        <filter id="logo-glow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    <g transform="translate(50,50) scale(1.1)" filter="url(#logo-glow)">
+                        <g transform="rotate(0)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(45)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(90)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(135)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(180)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(225)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(270)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                        <g transform="rotate(315)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#main-leaf-grad)" stroke="#fef08a" stroke-width="1.2" /></g>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- 使用與 Logo 字型配色高度一致的 CSS 品牌標題 -->
+            <h1 class="hero-title logo-brand-main" id="main-title">START<span class="orange-k">K</span>UP</h1>
+            <p class="hero-subtitle">淡江新創社 / Innovation & Entrepreneurship Association</p>
+            
+            <!-- 社團宗旨卡片 -->
+            <div class="purpose-card" id="purpose-section">
+                <h2>社團宗旨</h2>
+                <p class="purpose-text">
+                    「致力於跨域學習交流，以點子發想、創新創業為本協助青年實踐抱負。」
+                </p>
+                <div class="purpose-grid">
+                    <div class="purpose-item">
+                        <div class="icon-box">🧠</div>
+                        <h3>創新思考</h3>
+                        <p>突破傳統框架，探索多元可能，讓每個好點子發芽。</p>
+                    </div>
+                    <div class="purpose-item">
+                        <div class="icon-box">🤝</div>
+                        <h3>團隊協作</h3>
+                        <p>跨界交流互動，彼此支持激勵，凝聚最強團隊共識。</p>
+                    </div>
+                    <div class="purpose-item">
+                        <div class="icon-box">🚀</div>
+                        <h3>實踐成長</h3>
+                        <p>做中學、學中做，在舉辦活動中淬鍊領導力與實行力。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 組織架構區 -->
+    <section class="structure-section" id="structure">
+        <div class="section-header">
+            <h2>組織架構</h2>
+            <p>點擊下方各卡片，即可動態查看該部門的詳細「工作職掌與運作機制」</p>
+        </div>
+
+        <div class="structure-container">
+            <!-- 核心決策層 (社長 / 副社長) -->
+            <div class="leader-level">
+                <div class="dept-card active" data-dept="decision" id="card-decision">
+                    <div class="dept-icon">👥</div>
+                    <h3>【社長部】</h3>
+                    <span class="dept-tag tag-leader">社長 & 副社長</span>
+                    <p>凝聚幹部力量，主導福利規劃，日常代理與最終人事決策。</p>
+                </div>
+            </div>
+
+            <!-- 組織架構向下連接線 -->
+            <div class="struct-connector-line"></div>
+
+            <!-- 行政與執行部門 Grid (4 個部門) -->
+            <div class="departments-grid">
+                <!-- 營運部 -->
+                <div class="dept-card" data-dept="operations" id="card-operations">
+                    <div class="dept-icon">📈</div>
+                    <h3>【營運部】</h3>
+                    <span class="dept-tag tag-operations">部長</span>
+                    <p>管理行政庶務、追蹤專案進度，掌握財務收支與後勤保障。</p>
+                    <div class="member-tag">部員 X 3</div>
+                </div>
+                
+                <!-- 行銷部 -->
+                <div class="dept-card" data-dept="marketing" id="card-marketing">
+                    <div class="dept-icon">📣</div>
+                    <h3>【行銷部】</h3>
+                    <span class="dept-tag tag-marketing">部長</span>
+                    <p>主導 STARTKUP 品牌推廣、招生行銷及官方社群平台經營。</p>
+                    <div class="member-tag">部員 X 3</div>
+                </div>
+                
+                <!-- 專案競賽部 -->
+                <div class="dept-card" data-dept="competition" id="card-competition">
+                    <div class="dept-icon">🏆</div>
+                    <h3>【專案競賽部】</h3>
+                    <span class="dept-tag tag-competition">部長</span>
+                    <p>蒐集競賽黑客松資訊，推動創意點子孵化與跨域組隊參賽。</p>
+                    <div class="member-tag">部員 X 3</div>
+                </div>
+                
+                <!-- 人資與AI部 -->
+                <div class="dept-card" data-dept="hr_ai" id="card-hrai">
+                    <div class="dept-icon">🧠</div>
+                    <h3>【人資與AI部】</h3>
+                    <span class="dept-tag tag-hrai">部長</span>
+                    <p>負責社群凝聚關懷，規劃社員培訓，實踐 AI 工具技術賦能。</p>
+                    <div class="member-tag">部員 X 3</div>
+                </div>
+            </div>
+
+            <!-- 組織架構向上匯聚連接線 -->
+            <div class="struct-connector-line"></div>
+
+            <!-- 各活動專案執行小組 (最底層) -->
+            <div class="leader-level">
+                <div class="dept-card" data-dept="pm_team" id="card-pmteam">
+                    <div class="dept-icon">🚀</div>
+                    <h3>【各活動專案執行小組】</h3>
+                    <span class="dept-tag tag-pmteam">專案經理 PM 輪替制</span>
+                    <p>由各部部員輪流出任專案經理，直接操盤大型活動與創業專案的落地執行。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作職掌詳細看板 (Modal 彈出視窗) -->
+    <section class="duties-section" id="duties">
+        <div class="duties-container">
+            <div class="duties-card" id="duties-panel">
+                <!-- 關閉按鈕 -->
+                <button class="modal-close-btn" id="modal-close-btn" aria-label="關閉視窗">&times;</button>
+                <div class="duties-header">
+                    <span class="duties-icon-large" id="dept-detail-icon">👥</span>
+                    <div>
+                        <h2 id="dept-detail-title">【社長部】 工作職掌 (Department of the President)</h2>
+                        <p class="dept-detail-subtitle" id="dept-detail-tag">決策核心 / 社長 & 副社長 / 願景與傳承</p>
+                    </div>
+                </div>
+                
+                <div class="duties-body">
+                    <h3>主要職責</h3>
+                    <ul class="duties-list" id="dept-detail-list">
+                        <li>幹部凝聚力：主導期初、期末幹部聚餐與交流大會，定期關心核心幹部之心理狀態與留任率。</li>
+                        <li>幹部福利規劃：爭取與發放幹部專屬福利（如：優先對接業界校友資源、商業競賽報名費補助、專屬社服、官方幹部證書等）。</li>
+                        <li>日常會議代理：由副社長站在第一線，全權主持每週的日常幹部籌備會議，並橫向督導、協調其餘四大部門之進度。</li>
+                        <li>最終決策與傳承：社長全面退出日常例行會議（改採非同步遠端管理），保留最終重要人事決策權，並在期末進行下屆接班人考核。</li>
+                    </ul>
+                </div>
+
+                <!-- 新增未來黃金出路區塊 -->
+                <div class="career-body">
+                    <h3>🚀 未來黃金出路</h3>
+                    <ul class="career-list" id="dept-detail-career">
+                        <li>企業執行長 / 總經理 (CEO / GM)：提早修煉跨部門協調、百人團隊統籌與年度戰略佈局能力。</li>
+                        <li>創辦人 / 共同創辦人 (Founder / Co-Founder)：具備從零到一打造組織、資金控管與品牌建立的完整創業家思維。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社員定位區塊 -->
+    <section class="roles-section" id="roles">
+        <div class="roles-container">
+            <div class="section-header roles-header">
+                <h2>社員定位</h2>
+                <p class="roles-subtitle">不同的投入程度，相同的成長旅程。找到最適合你的方式加入新創社！</p>
+            </div>
+            
+            <div class="roles-grid">
+                <!-- 尋路者 (Seeker) -->
+                <div class="role-card role-seeker">
+                    <div class="role-card-head">
+                        <div class="role-icon-box role-icon-seeker">🧭</div>
+                        <div class="role-title-group">
+                            <h3><span class="role-en">Seeker</span><br>尋路者</h3>
+                            <div class="role-card-divider"></div>
+                            <div class="role-tier-box role-tier-seeker">一般社員</div>
+                        </div>
+                    </div>
+                    <div class="role-body">
+                        <div class="role-section-sub">
+                            <p class="role-desc">探索興趣，找到自己的方向</p>
+                        </div>
+                        <div class="role-price">NT$<strong>400</strong> <span>/ 學期</span></div>
+                        <div class="role-section-sub">
+                            <h4>包含新創社的基礎學習體驗：</h4>
+                            <ul class="role-feature-list role-feature-list-seeker">
+                                <li><span class="feature-icon">📖</span>參與主題社課與實作 Lab</li>
+                                <li><span class="feature-icon">🎤</span>參與講座、論壇與工作坊</li>
+                                <li><span class="feature-icon">👥</span>加入社員社群與交流活動</li>
+                                <li><span class="feature-icon">🛠️</span>接觸 AI、商業、行銷與專案工具</li>
+                                <li><span class="feature-icon">📒</span>取得社課教材與學習資源</li>
+                                <li><span class="feature-icon">🏅</span>完成規定可取得社員參與證明</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 探險家 (Adventurer) -->
+                <div class="role-card role-adventurer">
+                    <div class="role-card-head">
+                        <div class="role-icon-box role-icon-adventurer">⛰️</div>
+                        <div class="role-title-group">
+                            <h3><span class="role-en">Adventurer</span> 探險家</h3>
+                            <div class="role-card-divider"></div>
+                            <div class="role-tier-box role-tier-adventurer">進階社員</div>
+                        </div>
+                    </div>
+                    <div class="role-body">
+                        <div class="role-section-sub">
+                            <p class="role-desc">不只學習，開始做出成果</p>
+                        </div>
+                        <div class="role-price role-price-fee">費用：NTD 1200 / 學期</div>
+                        <div class="role-price role-price-highlight">早鳥方案：NTD <strong>1000</strong> / 學期</div>
+                        <div class="role-promo-note">限額 25名</div>
+                        <div class="role-section-sub">
+                            <h4>包含 Seeker 的所有學習資源，以及：</h4>
+                            <ul class="role-feature-list role-feature-list-adventurer">
+                                <li><span class="feature-icon">☕</span>Coffee Chat，與講師、業師深度交流</li>
+                                <li><span class="feature-icon">👥</span>專案與競賽組隊媒合</li>
+                                <li><span class="feature-icon">🎓</span>指導老師 / Mentor 媒合</li>
+                                <li><span class="feature-icon">🤝</span>幹部專案協作與線下輔導</li>
+                                <li><span class="feature-icon">🏆</span>商業競賽準備與參賽協助</li>
+                                <li><span class="feature-icon">🗂️</span>企劃書、Pitch Deck 與 Demo 回饋</li>
+                                <li><span class="feature-icon">📈</span>專案進度追蹤與階段性檢視</li>
+                                <li><span class="feature-icon">💼</span>累積可放進履歷的專案與競賽成果</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 創業家 (Entrepreneur) -->
+                <div class="role-card role-entrepreneur">
+                    <div class="role-card-head">
+                        <div class="role-icon-box role-icon-entrepreneur">🚀</div>
+                        <div class="role-title-group">
+                            <h3><span class="role-en">Entrepreneur</span> 創業家</h3>
+                            <div class="role-card-divider"></div>
+                            <div class="role-tier-box role-tier-entrepreneur">核心幹部</div>
+                        </div>
+                    </div>
+                    <div class="role-body">
+                        <div class="role-section-sub">
+                            <p class="role-desc">從參與者，成為創造機會的人</p>
+                        </div>
+                        <div class="role-promo-note role-entrepreneur-note">包含 Adventurer 的所有資源，以及：</div>
+                        <div class="role-section-sub">
+                            <ul class="role-feature-list role-feature-list-entrepreneur">
+                                <li><span class="feature-icon">🚀</span>主導社團專案、活動與新計畫</li>
+                                <li><span class="feature-icon">👥</span>帶領團隊，累積實際 Leadership 經驗</li>
+                                <li><span class="feature-icon">🎯</span>參與社團決策與營運</li>
+                                <li><span class="feature-icon">🏛️</span>直接與講師、企業、學校單位及合作夥伴協作</li>
+                                <li><span class="feature-icon">💰</span>實際接觸預算、贊助與資源整合</li>
+                                <li><span class="feature-icon">📣</span>負責行銷、活動、專案或組織經營</li>
+                                <li><span class="feature-icon">🧩</span>建立專案管理與跨部門協作經驗</li>
+                                <li><span class="feature-icon">💼</span>累積能被履歷具體呈現的領導與專案成果</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社團學分區塊 -->
+    <section class="credits-section" id="credits">
+        <div class="credits-container">
+            <div class="section-header">
+                <h2>🎯 社團學分</h2>
+                <p class="credits-subtitle">拒絕無效瞎忙，精準對接需求。</p>
+            </div>
+            
+            <div class="credits-main-card">
+                <p class="credits-highlight">明確的社員分流定位，一次搞定學分與履歷！</p>
+                
+                <div class="credits-grid">
+                    <!-- 3 次參與 -->
+                    <div class="credits-card-item">
+                        <div class="credits-badge badge-seeker">Seeker / Adventurer 皆可解鎖</div>
+                        <h3>【 3 次參與 】</h3>
+                        <p>參與 <strong>基礎講座活動</strong>、<strong>期末社員大會</strong> 等有開放參與認證之活動，即可輕鬆獲取學校認證之參與乙次。</p>
+                    </div>
+                    
+                    <!-- 1 次執行 -->
+                    <div class="credits-card-item">
+                        <div class="credits-badge badge-entrepreneur">Adventurer / Entrepreneur 專屬</div>
+                        <h3>【 1 次執行 】</h3>
+                        <p>參與 <strong>活動、企劃籌備及執行</strong>，即可獲得參與乙次。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 淡江新創社 常見問題 Q&A 區塊 -->
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <div class="section-header">
+                <h2>❓ 常見問題 Q&A</h2>
+                <p>淡江新創社 115 學年度 常見問答手冊</p>
+            </div>
+
+            <div class="faq-accordion-group">
+                <!-- Q1 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q1</span>
+                        <span class="faq-q-text">我沒有任何社團經驗還能當幹部嗎？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>完全可以！</strong> 我們的組織架構正是為「零經驗但想學習」的人量身打造的。我們這屆推行精實的「上下學期蓄力戰略」與「PM（專案經理）實習機制」：上學期活動精簡，新進幹部會在標準化的小活動中擔任 PM 踩坑練習，各部部長與副社長會手把手帶領你，是一個低風險的沙盒練習場。我們重視的是你的「學習態度」而非過去的經驗，只要你有心，這裡就是你累積即戰力的起點。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q2</span>
+                        <span class="faq-q-text">我沒有任何創業想法，也沒有寫程式或 AI 背景，可以加入當一般社員嗎？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>完全可以！</strong> 社團的宗旨就是創造探索職涯與跨域學習的孵化基地。我們將社員分為三種機制（Seeker / Adventurer / Entrepreneur）。如果你還在探索，可以先從最基礎的 Seeker（一般社員）開始，透過參與活動與專題課程，慢慢找到自己的方向。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q3</span>
+                        <span class="faq-q-text">我是為了拿社團學分而來的，社團有哪些規範？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>我們非常歡迎大家來拿學分！但為了維護學習品質，社團有明確的「學分與認證分流機制」。由「營運部」與「人資與 AI 部」共同嚴格控管出缺席，只要你穩定參與社課、完成規定的基本簽到，我們絕對會依學校法規協助你順利取得時數認證。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q4</span>
+                        <span class="faq-q-text">社團各部門的部長跟部員差在哪？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>核心差別在於<strong>「管理統籌」與「專案執行」</strong>。</p>
+                            <p style="margin-top: 10px;"><strong>部長：</strong>屬於社團的中階管理層，負責分配部門中所有主要職責工作室向、帶領跨部門協調、內部溝通，並作為部員的 Leader。</p>
+                            <p style="margin-top: 10px;"><strong>部員：</strong>屬於儲備幹部池，是社團最核心的實戰基本盤。組員將執行部門當中所分配到的工作事項，於其他部員交流確認任務、專案進度。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q5</span>
+                        <span class="faq-q-text">下學期的淡江創新創業提案競賽，一定要是幹部才能參加嗎？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>不限幹部，全校同學皆可組隊報名！</strong> 這是專案競賽部在下學期的年度重頭戲。不論你是進階社員還是校外戰隊，只要你有新創提案，都能參賽爭取高額的專案績效獎勵（如最佳專案獎、最佳創新獎等）。這場競賽也是我們招募未來核心幹部與下屆接班人的重要舞台。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q6</span>
+                        <span class="faq-q-text">加入各部門當「部員（初階幹部）」，工作負擔會不會很大？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>完全不用擔心！</strong> 我們這屆有「人資與 AI 部」幫大家導入各種自動化工具，加快整體的工作效率。除此之外，各部門的部長也都會親自下去協助、給予實質建議。如果在執行過程中遇到任何瓶頸，社長以及過去的社團優秀幹部們，都能隨時成為你最強大的<strong>幕後顧問</strong>！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q7</span>
+                        <span class="faq-q-text">聽說社團有推行「PM（專案經理）實習機制」，這是什麼？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>這是新創社最核心的「人才孵化器」。不論是 Coffee Chat、AI 聯合課程還是大型競賽，各部部長不會親自擔任總召，而是放權讓 12 名基層部員輪流出任 <strong>PM（專案經理）</strong>。你將有機會在低風險的環境下，親自調度營運部的經費與行銷部的宣傳，提早修煉職場最看重的專案管理力。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q8</span>
+                        <span class="faq-q-text">當新創社的幹部或部員，有什麼實質的福利嗎？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>我們的福利在全校社團中名列前茅！社長部專職負責發放幹部福利，包含：**全額免費社費、團隊高級內訓、AI 工具付費資源補助（如 Canva Pro、GPT 等）、學校核發的官方幹部證明**，以及每月的幹部聚餐與飲料補助，讓大家在學習成長之餘，也能享有實質的回饋。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q9</span>
+                        <span class="faq-q-text">新創社的幹部經歷，對我未來的職涯發展或履歷有什麼幫助？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>這是一份能讓履歷直接「開掛」的經歷。各部門的培訓與實戰皆對接企業核心職缺：人資與 AI 部對接**科技獵頭與人資經理**、專案競賽部對接**產品經理 (PM) 與活動策展人**、行銷部對接**數位行銷總監**、營運部則對接**營運主管 (COO)**。在大學期間經手萬元級預算與百人活動，能讓你畢業即具備即戰力。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="faq-q-number">Q10</span>
+                        <span class="faq-q-text">如果我有意願成為下下一屆（116學年度）的社團接班人或社長，我該怎麼做？</span>
+                        <span class="faq-icon-box">
+                            <span class="faq-icon-plus"></span>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>在新創社，我們有非常透明且清晰的「階梯式晉升漏斗」：只要你在上學期的活動 PM 實習中展現出責任感，下學期就有極高機會被「人資與 AI 部」與「社長部」內定提拔為各部部長；表現最頂尖、能統籌大局的部長將升任副社長，並在下學期實習社長職務，無縫交接。我們非常期待你的加入與接班！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer" id="footer-section">
+        <div class="footer-container">
+            <!-- 左欄：社團簡介 -->
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px;">
+                        <g transform="translate(50,50) scale(0.95)">
+                            <g transform="rotate(0)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                            <g transform="rotate(90)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                            <g transform="rotate(180)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                            <g transform="rotate(270)"><path d="M 0,-35 C 15,-40 22,-25 16,-8 C 10,-15 0,-25 0,-35 Z" fill="url(#nav-leaf-grad)" stroke="#fef08a" stroke-width="1.5" /></g>
+                        </g>
+                    </svg>
+                    <span class="logo-brand">START<span class="orange-k">K</span>UP</span>
+                </div>
+                <p class="footer-desc">致力於跨域學習交流，以點子發想、創新創業為本協助青年實踐抱負。</p>
+            </div>
+
+            <!-- 中欄：聯絡資訊 -->
+            <div class="footer-col contact-col">
+                <h3>聯絡資訊</h3>
+                <ul class="footer-info-list">
+                    <li>
+                        <span class="info-icon">📍</span>
+                        <span class="info-text">社團辦公室：淡江大學 SG144</span>
+                    </li>
+                    <li>
+                        <span class="info-icon">📧</span>
+                        <a href="mailto:people.startkup@gmail.com" class="info-link">聯絡信箱：people.startkup@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 右欄：官方社群 -->
+            <div class="footer-col social-col">
+                <h3>官方社群</h3>
+                <ul class="footer-info-list">
+                    <li>
+                        <span class="info-icon">📸</span>
+                        <a href="https://www.instagram.com/startkup/" target="_blank" rel="noopener noreferrer" class="info-link">IG：@startkup</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 STARTKUP 淡江新創社. 版權所有.</p>
+            <p class="footer-sub">使用 HTML / CSS / Vanilla JS 打造</p>
+        </div>
+    </footer>
+
+    <!-- 引入外部行為腳本 script.js -->
+    <script src="script.js?v=1.0.9"></script>
+</body>
+</html>
