@@ -1,0 +1,1730 @@
+/* ==========================================================================
+   STARTKUP 淡江新創社 - 官方網頁航空主題樣式表 (style.css)
+   主題：Startup Airline (新創航空) - 藍天白雲明亮版
+   視覺風格：晴空淺藍與純白 + 蔚藍航空霓虹 + 柔軟白雲新擬物風 (Neumorphism)
+   ========================================================================== */
+
+/* --- 全局設計變數與主題色 --- */
+:root {
+    --bg-dark: #e0f2fe;           /* 晴空淺天藍 (Sky 100) */
+    --bg-card: rgba(255, 255, 255, 0.85); /* 白色半透明毛玻璃白雲卡片 */
+    --color-primary: #0284c7;     /* 蔚藍色 (Sky 600，主標與重要標籤) */
+    --color-accent: #0ea5e9;      /* 天藍色 (Sky 500) */
+    --color-gray: #f1f5f9;        /* 亮白灰 (Slate 100，擬物凹陷底色) */
+    --color-gray-border: rgba(2, 132, 199, 0.15); /* 蔚藍細邊框 */
+    
+    /* 藍天白雲新擬物風陰影 (Neumorphism for Light Mode) */
+    --shadow-flat: 6px 6px 18px rgba(2, 132, 199, 0.08), -6px -6px 18px rgba(255, 255, 255, 0.7);
+    --shadow-pressed: inset 4px 4px 8px rgba(2, 132, 199, 0.08), inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+    
+    /* 文字顏色 (明亮模式) */
+    --text-main: #0f172a;        /* 深灰黑色主文字 (Slate 900) */
+    --text-muted: #475569;       /* 灰藍色副文字 (Slate 600) */
+    
+    /* 字體 */
+    --font-sans: 'Outfit', 'Noto Sans TC', sans-serif;
+    
+    /* 動態過渡時間 */
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- 基礎樣式重設 (Reset) 與火箭滑鼠游標 (蔚藍版) --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    /* 客製化小飛機/火箭滑鼠游標 (使用深蔚藍與亮天藍) */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><g transform="rotate(45 16 16)"><path d="M16 4 L22 14 L10 14 Z" fill="%230ea5e9"/><path d="M16 10 L16 26" stroke="%230284c7" stroke-width="2"/><path d="M11 20 L16 14 L21 20" stroke="%230ea5e9" stroke-width="1.5"/></g></svg>') 8 8, auto;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 點選連結或按鈕時的滑鼠指針微調 */
+a, button, .dept-card, .faq-question, .resizer-btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><g transform="rotate(45 16 16)"><path d="M16 4 L22 14 L10 14 Z" fill="%230284c7"/><path d="M16 10 L16 26" stroke="%230ea5e9" stroke-width="2"/><path d="M11 20 L16 14 L21 20" stroke="%230284c7" stroke-width="1.5"/></g></svg>') 8 8, pointer !important;
+}
+
+/* --- 航空宇宙天空背景與視差飛機 --- */
+.airline-sky-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
+    background: linear-gradient(180deg, #bae6fd 0%, #f0f9ff 100%); /* 蔚藍天空至雲霧淺白漸層 */
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* 繁星點點 (在白天化為耀眼陽光微粒) */
+.stars-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1.5px 1.5px at 40px 80px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.2px 1.2px at 120px 220px, #38bdf8, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 280px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.2px 1.2px at 380px 480px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2.5px 2.5px at 600px 300px, #38bdf8, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 800px 150px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 950px 420px, #ffffff, rgba(0,0,0,0));
+    background-size: 500px 500px;
+    opacity: 0.8;
+    animation: starsBlink 8s infinite linear;
+}
+
+@keyframes starsBlink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.9; }
+}
+
+/* 雲朵漂浮層 (白天雲朵化為蓬鬆純白) */
+.clouds-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5; /* 提高白雲能見度，營造藍天白雲氛圍 */
+}
+
+.cloud {
+    position: absolute;
+    font-size: 11rem;
+    color: #ffffff; /* 純白雲朵 */
+    filter: blur(15px); /* 柔軟模糊 */
+    user-select: none;
+}
+
+.cloud-1 { top: 10%; left: -10%; animation: cloudFlow 80s infinite linear; }
+.cloud-2 { top: 40%; right: -15%; animation: cloudFlowReverse 95s infinite linear; }
+.cloud-3 { top: 70%; left: -5%; animation: cloudFlow 110s infinite linear; }
+.cloud-4 { top: 5%; right: 20%; animation: cloudFlowReverse 75s infinite linear; }
+
+@keyframes cloudFlow {
+    0% { transform: translateX(-150px); }
+    100% { transform: translateX(calc(100vw + 150px)); }
+}
+@keyframes cloudFlowReverse {
+    0% { transform: translateX(150px); }
+    100% { transform: translateX(calc(-100vw - 150px)); }
+}
+
+/* 滾動視差客機 */
+.parallax-airplane {
+    position: fixed;
+    right: 6%;
+    top: 40%;
+    z-index: 99;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 15px rgba(2, 132, 199, 0.3));
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), top 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: center center;
+}
+
+/* --- 頂部導覽列 (Navbar) --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: rgba(224, 242, 254, 0.8); /* 淺藍半透明 */
+    border-bottom: 1px solid var(--color-gray-border);
+    box-shadow: 0 4px 20px rgba(2, 132, 199, 0.06);
+    transition: var(--transition-smooth);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    line-height: 1; /* 消除行高干擾，使 SVG 與文字完美置中 */
+}
+
+.logo-text svg {
+    display: block; /* 消除 inline 元素默認基線帶來的對齊誤差 */
+    flex-shrink: 0; /* 防止 SVG 尺寸被彈性盒子擠壓變形 */
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logo-text:hover svg {
+    transform: rotate(180deg) scale(1.1);
+}
+
+.logo-brand {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.35rem;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--text-main) 60%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-right: 8px; /* 防止斜體字右側被切掉 */
+}
+
+.orange-k {
+    color: var(--color-primary);
+    -webkit-text-fill-color: var(--color-primary);
+    text-shadow: 0 0 8px rgba(2, 132, 199, 0.2);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    position: relative;
+    padding: 4px 0;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* 字體縮放按鈕面板 (擬物風 - 白雲版) */
+.font-resizer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--color-gray-border);
+    padding: 2px;
+    border-radius: 20px;
+    margin-left: 8px;
+    box-shadow: var(--shadow-pressed);
+}
+
+.resizer-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 16px;
+    transition: var(--transition-smooth);
+}
+
+.resizer-btn:hover {
+    color: var(--color-primary);
+}
+
+.resizer-btn.active {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.2);
+}
+
+/* --- 首頁英雄區 (Hero Section) --- */
+.hero-section {
+    min-height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-bg-glow {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, rgba(224, 242, 254, 0) 70%);
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(50px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hero-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+}
+
+/* 大 Logo 浮空發光 */
+.club-logo-container {
+    margin-bottom: 16px;
+    display: inline-block;
+    filter: drop-shadow(0 8px 20px rgba(2, 132, 199, 0.25));
+    animation: floatAnimation 6s ease-in-out infinite;
+}
+
+.main-logo {
+    width: 140px;
+    height: 140px;
+}
+
+.logo-brand-main {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 4.8rem !important;
+    letter-spacing: -2px !important;
+    background: linear-gradient(135deg, var(--text-main) 50%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding-right: 20px; /* 防止斜體字右側被切掉 */
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+}
+
+/* --- 航空使命卡片 (Mission / Purpose Card - 白雲擬物) --- */
+.purpose-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 28px;
+    padding: 45px 40px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-flat);
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.purpose-card:hover {
+    border-color: rgba(2, 132, 199, 0.3);
+    box-shadow: var(--shadow-flat), 0 8px 30px rgba(2, 132, 199, 0.08);
+}
+
+.purpose-card h2 {
+    font-size: 1.85rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, var(--text-main) 40%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.purpose-text {
+    font-size: 1.25rem;
+    color: var(--text-main);
+    font-weight: 600;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    border-left: 3px solid var(--color-accent);
+    border-right: 3px solid var(--color-primary);
+    padding: 0 20px;
+    display: inline-block;
+}
+
+.purpose-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* 白雲擬物卡片細項 */
+.purpose-item {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow-flat);
+    transition: var(--transition-smooth);
+}
+
+.purpose-item:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(2, 132, 199, 0.2);
+    box-shadow: var(--shadow-flat);
+}
+
+.purpose-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+}
+
+.purpose-item p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* --- 組織架構區 (Structure Section) --- */
+.structure-section {
+    padding: 100px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header h2 {
+    font-size: 2.35rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--text-main) 50%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.structure-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.leader-level {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 航空藍色連接線 */
+.struct-connector-line {
+    width: 3px;
+    height: 45px;
+    background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
+    margin: 15px 0;
+    position: relative;
+}
+
+.struct-connector-line::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    background-color: var(--color-primary);
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+}
+
+.struct-connector-line::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    background-color: var(--color-accent);
+    box-shadow: 0 2px 6px rgba(14, 165, 233, 0.4);
+}
+
+.departments-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* --- 部門航空卡片 (白雲擬物) --- */
+.dept-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 24px;
+    padding: 28px 20px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-flat);
+    transition: var(--transition-smooth);
+}
+
+.dept-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.dept-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-flat), 0 8px 25px rgba(2, 132, 199, 0.08);
+}
+
+.dept-card:hover::before {
+    opacity: 1;
+}
+
+.dept-card.active {
+    border-color: var(--color-primary);
+    background-color: rgba(2, 132, 199, 0.05);
+    box-shadow: var(--shadow-flat), inset 0 0 15px rgba(2, 132, 199, 0.08);
+    transform: scale(1.03);
+}
+
+.dept-card.active::before {
+    opacity: 1;
+    height: 5px;
+}
+
+.dept-icon {
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dept-card:hover .dept-icon {
+    transform: translateY(-4px) scale(1.2);
+}
+
+.dept-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.dept-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(2, 132, 199, 0.1);
+}
+
+/* 航空部門代碼色系 (明亮調整版) */
+.tag-leader { background: rgba(2, 132, 199, 0.1); color: var(--color-primary); }
+.tag-operations { background: rgba(14, 165, 233, 0.1); color: #0284c7; }
+.tag-marketing { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+.tag-competition { background: rgba(234, 88, 12, 0.1); color: #ea580c; }
+.tag-hrai { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+.tag-pmteam { background: rgba(13, 148, 136, 0.1); color: #0d9488; }
+
+/* 卡片部員數量小標籤 */
+.member-tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-muted);
+    border: 1px solid var(--color-gray-border);
+    box-shadow: var(--shadow-pressed);
+}
+
+.dept-card:hover .member-tag {
+    color: var(--color-primary);
+    background: #ffffff;
+}
+
+.dept-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* --- 工作職掌詳細看板 (Pop-up Modal) --- */
+.duties-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(2, 12, 27, 0.35); /* 輕度暗色遮罩 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding: 24px;
+}
+
+.duties-section.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.duties-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.duties-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--color-gray-border);
+    border-radius: 28px;
+    padding: 40px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(2, 132, 199, 0.12);
+    position: relative;
+    transform: scale(0.9) translateY(30px);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    opacity: 0;
+}
+
+.duties-section.show .duties-card {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* 關閉按鈕 */
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--color-gray-border);
+    color: var(--text-muted);
+    font-size: 24px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    transform: rotate(90deg);
+}
+
+.duties-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border-bottom: 1px solid var(--color-gray-border);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+}
+
+.duties-icon-large {
+    font-size: 3.5rem;
+    width: 85px;
+    height: 85px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-pressed);
+}
+
+#dept-detail-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.dept-detail-subtitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-primary);
+}
+
+.duties-body h3, .career-body h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.duties-body h3::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
+    border-radius: 4px;
+}
+
+.duties-list li, .career-list li {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+    padding-left: 28px;
+    position: relative;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.duties-list li::before {
+    content: '🛫';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    font-size: 0.85rem;
+}
+
+.career-body {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--color-gray-border);
+}
+
+.career-body h3::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: linear-gradient(180deg, var(--color-accent), #0ea5e9);
+    border-radius: 4px;
+}
+
+.career-list li::before {
+    content: '🏅';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    font-size: 0.85rem;
+}
+
+/* --- 社員定位區塊 (Boarding Passes - 白雲卡片) --- */
+.roles-section {
+    padding: 100px 24px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.roles-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* 航空登機證造型卡片 */
+.role-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 28px;
+    padding: 38px 28px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-flat);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+/* 登機證的半圓切口效果 (與背景藍天完美融合) */
+.role-card::before, .role-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #bae6fd; /* 天空背景淺藍色，實現剪口視覺感 */
+    z-index: 5;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.role-card::before { left: -10px; transform: translateY(-50%); }
+.role-card::after { right: -10px; transform: translateY(-50%); }
+
+.role-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-flat), 0 8px 25px rgba(2, 132, 199, 0.08);
+}
+
+/* 卡片撕票線裝飾 */
+.role-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    padding-top: 15px;
+    flex: 1; /* 撐滿卡片剩餘高度，讓 margin-top: auto 的底部引言真正靠底 */
+}
+
+.role-body::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    border-top: 2px dashed rgba(2, 132, 199, 0.15); /* 蔚藍虛線撕票線 */
+}
+
+.role-icon-box {
+    font-size: 2.2rem;
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-pressed);
+}
+
+.role-title-group h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.role-en {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 20px;
+    border: 1px solid rgba(2, 132, 199, 0.1);
+}
+
+/* 艙等分流配色 */
+.badge-seeker-group { background: rgba(14, 165, 233, 0.1); color: #0284c7; }
+.badge-adventurer-group { background: rgba(2, 132, 199, 0.1); color: var(--color-primary); }
+.badge-entrepreneur-group { background: rgba(3, 105, 161, 0.1); color: #0369a1; }
+
+.role-section-sub h4 {
+    font-size: 0.88rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.role-seeker h4 { color: #0284c7; }
+.role-adventurer h4 { color: var(--color-primary); }
+.role-entrepreneur h4 { color: #0369a1; }
+
+.role-section-sub p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.role-section-sub ul li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+}
+
+.role-section-sub ul li::before {
+    content: '🛫';
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-size: 0.8rem;
+    color: var(--color-primary);
+}
+
+/* 創業家頭等艙特製發光 */
+.role-entrepreneur {
+    border-color: rgba(2, 132, 199, 0.25);
+    box-shadow: var(--shadow-flat);
+}
+
+.role-entrepreneur:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-flat), 0 8px 30px rgba(2, 132, 199, 0.1);
+}
+
+.highlight-green {
+    color: #0369a1;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+/* --- 新增社員定位航空細節樣式 --- */
+.role-meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+.role-slogan {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--color-primary);
+    letter-spacing: 0.5px;
+}
+
+.role-fare {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-top: 2px;
+}
+
+.role-fare strong {
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.role-promo-note {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ea580c; /* 亮橘色高亮早鳥價格 */
+    background: rgba(234, 88, 12, 0.08);
+    padding: 5px 14px;
+    border-radius: 6px;
+    display: inline-block;
+    width: fit-content; /* 自動適應合併後的較長文字 */
+    margin-top: 4px;
+    border: 1px solid rgba(234, 88, 12, 0.2);
+    white-space: nowrap; /* 強制不換行 */
+}
+
+.role-limit-note {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px dashed var(--color-gray-border);
+    padding: 3px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    width: max-content;
+    margin-top: 2px;
+}
+
+.role-desc {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.role-desc-sub {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+.role-desc-detail {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.role-footer-quote {
+    margin-top: auto; /* 撐開至卡片最下方，實現對齊 */
+    padding-top: 16px;
+    border-top: 1px dashed rgba(2, 132, 199, 0.15);
+    font-size: 0.85rem;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* --- 參與方式卡片新版樣式 --- */
+.roles-header {
+    text-align: center;
+}
+
+.roles-header h2 {
+    font-size: clamp(2.2rem, 4vw, 3.7rem);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: var(--text-main);
+}
+
+.roles-header .roles-subtitle {
+    max-width: 860px;
+    margin: 14px auto 0;
+    font-size: 1.05rem;
+    color: #24314f;
+}
+
+.roles-grid {
+    align-items: stretch;
+}
+
+.role-card {
+    padding: 34px 28px 30px;
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.94);
+}
+
+.role-card-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 14px;
+}
+
+.role-card-head .role-icon-box {
+    width: 82px;
+    height: 82px;
+    font-size: 2.5rem;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(248, 251, 255, 0.98), rgba(231, 243, 255, 0.95));
+    border-color: rgba(59, 130, 246, 0.12);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    flex-shrink: 0;
+}
+
+.role-icon-seeker { color: #f59e0b; }
+.role-icon-adventurer { color: #2563eb; }
+.role-icon-entrepreneur { color: #111827; }
+
+.role-title-group {
+    flex: 1;
+}
+
+.role-title-group h3 {
+    font-size: clamp(1.85rem, 2vw, 2.2rem);
+    font-weight: 900;
+    color: #16213f;
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+}
+
+.role-en {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05em;
+    font-weight: 800;
+    color: inherit;
+    margin-right: 0.25em;
+}
+
+.role-card-divider {
+    width: 44px;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.9);
+}
+
+.role-tier-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 5px 12px;
+    margin-top: 10px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #0f4ea8;
+    background: linear-gradient(180deg, rgba(219, 234, 254, 0.98), rgba(191, 219, 254, 0.95));
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.08);
+}
+
+.role-tier-seeker {
+    color: #0f7acb;
+}
+
+.role-tier-adventurer {
+    color: #1262d6;
+}
+
+.role-tier-entrepreneur {
+    color: #0f4ea8;
+}
+
+.role-body {
+    gap: 16px;
+    padding-top: 12px;
+}
+
+.role-body::before {
+    border-top: 1px solid rgba(226, 232, 240, 0.95);
+    top: -3px;
+}
+
+.role-desc {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e2b4a;
+    line-height: 1.45;
+    margin-bottom: 4px;
+}
+
+.role-price {
+    font-family: 'Outfit', sans-serif;
+    text-align: center;
+    font-size: 1.05rem;
+    color: #1e293b;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.role-price strong {
+    font-size: 2.7rem;
+    font-weight: 900;
+    color: #0f172a;
+}
+
+.role-price span {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.role-price-old {
+    color: #9ca3af;
+    text-decoration: line-through;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.role-price-fee {
+    color: #1e293b;
+    font-size: 1.12rem;
+}
+
+.role-price-highlight {
+    color: #2563eb;
+    font-size: 1.12rem;
+}
+
+.role-price-highlight strong {
+    color: #2563eb;
+}
+
+.role-promo-note {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f4ea8;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0 auto;
+    white-space: normal;
+}
+
+.role-entrepreneur-note {
+    text-align: left;
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.role-section-sub h4 {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #16213f;
+    margin-bottom: 10px;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.role-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.role-feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: #334155;
+    font-weight: 600;
+    padding-left: 0;
+    position: static;
+}
+
+.feature-icon {
+    width: 22px;
+    flex-shrink: 0;
+    text-align: center;
+    margin-top: 1px;
+}
+
+.role-feature-list-seeker .feature-icon {
+    color: #2563eb;
+}
+
+.role-feature-list-adventurer .feature-icon {
+    color: #1d4ed8;
+}
+
+.role-feature-list-entrepreneur .feature-icon {
+    color: #111827;
+}
+
+.role-section-sub ul li::before {
+    content: none;
+}
+
+.role-card::before, .role-card::after {
+    display: none;
+}
+
+.role-section-sub p {
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+.role-card .role-footer-quote {
+    display: none;
+}
+
+/* --- 飛行里程累積 (Credits Section - 白雲擬物) --- */
+.credits-section {
+    padding: 80px 24px 60px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.credits-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.credits-main-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 28px;
+    padding: 40px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-flat);
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.credits-main-card:hover {
+    border-color: rgba(2, 132, 199, 0.3);
+    box-shadow: var(--shadow-flat), 0 8px 30px rgba(2, 132, 199, 0.08);
+}
+
+.credits-highlight {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 36px;
+    letter-spacing: 1px;
+}
+
+.credits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    text-align: left;
+}
+
+.credits-card-item {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 22px;
+    padding: 30px 24px;
+    box-shadow: var(--shadow-flat);
+    transition: var(--transition-smooth);
+}
+
+.credits-card-item:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-flat);
+}
+
+.credits-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 10pt;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(2, 132, 199, 0.1);
+}
+
+.badge-seeker {
+    background: rgba(14, 165, 233, 0.1);
+    color: #0284c7;
+}
+
+.badge-entrepreneur {
+    background: rgba(3, 105, 161, 0.1);
+    color: #0369a1;
+}
+
+.credits-card-item h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.credits-card-item p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* --- 常見問題 Q&A 區塊 --- */
+.faq-section {
+    padding: 80px 24px 100px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-accordion-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.faq-item {
+    background-color: var(--bg-card);
+    border: 1px solid var(--color-gray-border);
+    border-radius: 22px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-flat);
+    transition: var(--transition-smooth);
+}
+
+.faq-item:hover {
+    border-color: rgba(2, 132, 199, 0.3);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.faq-item.active {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-flat), 0 4px 20px rgba(2, 132, 199, 0.05);
+    background-color: #ffffff;
+}
+
+.faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 30px;
+    text-align: left;
+    outline: none;
+}
+
+.faq-q-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.faq-q-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    flex-grow: 1;
+    line-height: 1.5;
+    padding-right: 20px;
+}
+
+.faq-icon-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--color-gray-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    position: relative;
+    flex-shrink: 0;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-pressed);
+}
+
+.faq-item:hover .faq-icon-box {
+    color: var(--color-primary);
+}
+
+.faq-icon-plus {
+    width: 12px;
+    height: 2px;
+    background-color: currentColor;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.faq-icon-plus::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background-color: currentColor;
+    left: 5px;
+    top: -5px;
+    transition: var(--transition-smooth);
+}
+
+.faq-item.active .faq-icon-box {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.faq-item.active .faq-icon-plus {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-answer-content {
+    padding: 0 30px 24px 30px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 16px;
+    font-weight: 500;
+}
+
+.faq-answer-content strong {
+    color: var(--color-primary);
+}
+
+/* --- 頁尾 (Footer) --- */
+.footer {
+    border-top: 1px solid var(--color-gray-border);
+    padding: 60px 24px 30px;
+    background-color: rgba(224, 242, 254, 0.7); /* 淺天藍半透明 */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    position: relative;
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 2px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.footer-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.footer-info-list {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-info-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.info-icon {
+    font-size: 1.1rem;
+}
+
+.info-text {
+    color: var(--text-muted);
+}
+
+.info-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.info-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(2, 132, 199, 0.1);
+}
+
+.footer-bottom p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.footer-sub {
+    font-size: 0.72rem !important;
+    margin-top: 6px;
+    letter-spacing: 1px;
+}
+
+/* --- 關鍵畫格動畫 --- */
+@keyframes floatAnimation {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* --- 響應式佈局 (RWD) --- */
+
+/* 平板尺寸 (992px 以下) */
+@media (max-width: 992px) {
+    .departments-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .roles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .role-entrepreneur {
+        grid-column: span 2;
+    }
+    .hero-title {
+        font-size: 2.75rem;
+    }
+    .logo-brand-main {
+        font-size: 3.8rem !important;
+    }
+}
+
+/* 行動裝置尺寸 (768px 以下) */
+@media (max-width: 768px) {
+    .purpose-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .credits-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .departments-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .duties-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    .duties-card {
+        padding: 30px 20px;
+    }
+    .roles-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .role-entrepreneur {
+        grid-column: span 1;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .parallax-airplane {
+        right: 3%;
+        top: 45%;
+        transform: scale(0.7);
+    }
+    /* 在行動裝置上將登機證切口的背景顏色也改為天空背景的淺藍色，避免破圖 */
+    .role-card::before, .role-card::after {
+        background-color: #bae6fd;
+    }
+}
+
+/* 超小手機尺寸 (576px 以下) */
+@media (max-width: 576px) {
+    .navbar {
+        height: auto;
+        padding: 12px 0;
+    }
+    .nav-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .nav-links {
+        gap: 16px;
+    }
+    .hero-section {
+        padding-top: 140px;
+    }
+    .hero-title {
+        font-size: 2.25rem;
+    }
+    .logo-brand-main {
+        font-size: 3rem !important;
+    }
+    .departments-grid {
+        grid-template-columns: 1fr;
+    }
+    .leader-level {
+        width: 100%;
+    }
+    .dept-card {
+        width: 100%;
+    }
+}
